@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Conectando ao TikTok…</title>
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main><div class="wrap" style="text-align:center">
+  <img src="logo.png" alt="" style="width:96px;height:96px;border-radius:50%;margin-top:40px">
+  <h1>Conectando ao TikTok…</h1>
+  <p id="msg" class="atualizado">Finalizando a autorização. Você será redirecionado em instantes.</p>
+</div></main>
+<script>
+  // Repassa o retorno do OAuth (code/state ou error) para o n8n da máquina do operador.
+  // Só é usado por quem roda o painel: o n8n fica em localhost na mesma máquina.
+  var N8N_CALLBACK = 'http://localhost:5678/webhook/tiktok/oauth/callback';
+  var q = window.location.search;
+  if (q && /[?&](code|error)=/.test(q)) {
+    window.location.replace(N8N_CALLBACK + q);
+  } else {
+    document.getElementById('msg').textContent = 'Nenhuma autorização em andamento. Pode fechar esta página.';
+  }
+</script>
+</body>
+</html>
